@@ -7,23 +7,23 @@ import {
   View,
 } from 'react-native';
 import DeviceModal from './DeviceConnectionModal';
-import PulseIndicator from './PulseIndicator';
 import useBLE from './useBLE';
 
 const App = () => {
-  const {
+  const {stopDeviceScan,
     requestPermissions,
     scanForPeripherals,
     allDevices,
     connectToDevice,
     connectedDevice,
-    heartRate,
+    dataResponse,
     disconnectFromDevice,
   } = useBLE();
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
   const scanForDevices = () => {
     requestPermissions(isGranted => {
+      console.log("isGranted",isGranted);
       if (isGranted) {
         scanForPeripherals();
       }
@@ -31,6 +31,7 @@ const App = () => {
   };
 
   const hideModal = () => {
+    stopDeviceScan();
     setIsModalVisible(false);
   };
 
@@ -41,16 +42,15 @@ const App = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.heartRateTitleWrapper}>
+      <View style={styles.dataResponseTitleWrapper}>
         {connectedDevice ? (
           <>
-            <PulseIndicator />
-            <Text style={styles.heartRateTitleText}>Your Heart Rate Is:</Text>
-            <Text style={styles.heartRateText}>{heartRate} bpm</Text>
+            <Text style={styles.dataResponseTitleText}>data:</Text>
+            <Text style={styles.dataResponseText}>{dataResponse}</Text>
           </>
         ) : (
-          <Text style={styles.heartRateTitleText}>
-            Please Connect to a Heart Rate Monitor
+          <Text style={styles.dataResponseTitleText}>
+            Please Connect to a Monitor
           </Text>
         )}
       </View>
@@ -76,19 +76,19 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f2f2f2',
   },
-  heartRateTitleWrapper: {
+  dataResponseTitleWrapper: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  heartRateTitleText: {
+  dataResponseTitleText: {
     fontSize: 30,
     fontWeight: 'bold',
     textAlign: 'center',
     marginHorizontal: 20,
     color: 'black',
   },
-  heartRateText: {
+  dataResponseText: {
     fontSize: 25,
     marginTop: 15,
   },
