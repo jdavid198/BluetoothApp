@@ -12,9 +12,6 @@ import DeviceInfo from 'react-native-device-info';
 
 import {atob} from 'react-native-quick-base64';
 
-const HEART_RATE_UUID = '0000180d-0000-1000-8000-00805f9b34fb';
-const HEART_RATE_CHARACTERISTIC = '00002a37-0000-1000-8000-00805f9b34fb';
-
 const bleManager = new BleManager();
 
 type VoidCallback = (result: boolean) => void;
@@ -119,7 +116,7 @@ function useBLE(): BluetoothLowEnergyApi {
   const startStreamingData = async (device: Device) => {
     if (device) {
       console.log("device conectado: ",device);//validas la informacion a recibir
-      
+      // setDataResponse(device.info.data);
     } else {
       console.log('No Device Connected');
     }
