@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from "react";
+import React, {FC, useCallback} from 'react';
 import {
   FlatList,
   ListRenderItemInfo,
@@ -8,8 +8,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   Button,
-} from "react-native";
-import { Device } from "react-native-ble-plx";
+} from 'react-native';
+import {Device} from 'react-native-ble-plx';
 
 type DeviceModalListItemProps = {
   item: ListRenderItemInfo<Device>;
@@ -22,11 +22,10 @@ type DeviceModalProps = {
   visible: boolean;
   connectToPeripheral: (device: Device) => void;
   closeModal: () => void;
-  closeModalOffToogle: () => void;
 };
 
-const DeviceModalListItem: FC<DeviceModalListItemProps> = (props) => {
-  const { item, connectToPeripheral, closeModal } = props;
+const DeviceModalListItem: FC<DeviceModalListItemProps> = props => {
+  const {item, connectToPeripheral, closeModal} = props;
 
   const connectAndCloseModal = useCallback(() => {
     connectToPeripheral(item.item);
@@ -36,15 +35,14 @@ const DeviceModalListItem: FC<DeviceModalListItemProps> = (props) => {
   return (
     <TouchableOpacity
       onPress={connectAndCloseModal}
-      style={modalStyle.ctaButton}
-    >
+      style={modalStyle.ctaButton}>
       <Text style={modalStyle.ctaButtonText}>{item.item.name}</Text>
     </TouchableOpacity>
   );
 };
 
-const DeviceModal: FC<DeviceModalProps> = (props) => {
-  const { devices, visible, connectToPeripheral, closeModal,closeModalOffToogle } = props;
+const DeviceModal: FC<DeviceModalProps> = props => {
+  const {devices, visible, connectToPeripheral, closeModal} = props;
 
   const renderDeviceModalListItem = useCallback(
     (item: ListRenderItemInfo<Device>) => {
@@ -56,7 +54,7 @@ const DeviceModal: FC<DeviceModalProps> = (props) => {
         />
       );
     },
-    [closeModal, connectToPeripheral]
+    [closeModal, connectToPeripheral],
   );
 
   return (
@@ -64,8 +62,7 @@ const DeviceModal: FC<DeviceModalProps> = (props) => {
       style={modalStyle.modalContainer}
       animationType="slide"
       transparent={false}
-      visible={visible}
-    >
+      visible={visible}>
       <SafeAreaView style={modalStyle.modalTitle}>
         <Text style={modalStyle.modalTitleText}>
           Tap on a device to connect
@@ -78,7 +75,7 @@ const DeviceModal: FC<DeviceModalProps> = (props) => {
       </SafeAreaView>
       <Button
         title="Cancel"
-        onPress={closeModalOffToogle}
+        onPress={closeModal}
       />
     </Modal>
   );
@@ -87,35 +84,35 @@ const DeviceModal: FC<DeviceModalProps> = (props) => {
 const modalStyle = StyleSheet.create({
   modalContainer: {
     flex: 1,
-    backgroundColor: "#f2f2f2",
+    backgroundColor: '#f2f2f2',
   },
   modalFlatlistContiner: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   modalCellOutline: {
     borderWidth: 1,
-    borderColor: "black",
-    alignItems: "center",
+    borderColor: 'black',
+    alignItems: 'center',
     marginHorizontal: 20,
     paddingVertical: 15,
     borderRadius: 8,
   },
   modalTitle: {
     flex: 1,
-    backgroundColor: "#f2f2f2",
+    backgroundColor: '#f2f2f2',
   },
   modalTitleText: {
     marginTop: 40,
     fontSize: 30,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginHorizontal: 20,
-    textAlign: "center",
+    textAlign: 'center',
   },
   ctaButton: {
-    backgroundColor: "#FF6060",
-    justifyContent: "center",
-    alignItems: "center",
+    backgroundColor: 'purple',
+    justifyContent: 'center',
+    alignItems: 'center',
     height: 50,
     marginHorizontal: 20,
     marginBottom: 5,
@@ -123,8 +120,8 @@ const modalStyle = StyleSheet.create({
   },
   ctaButtonText: {
     fontSize: 18,
-    fontWeight: "bold",
-    color: "white",
+    fontWeight: 'bold',
+    color: 'white',
   },
 });
 
